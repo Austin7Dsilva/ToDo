@@ -23,11 +23,32 @@ export const TaskForm: React.FC<Props> = ({
         initialData?.status || "Pending"
     );
 
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!title.trim()) return;
         onSave({ title, description, status });
     };
+
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case "Completed":
+                return "#16a34a"; // Green
+            case "In Progress":
+                return "#f59e0b"; // Orange
+            default:
+                return "#9ca3af"; // Grey/Pending
+        }
+    };
+
+    const handleStatusSelect = (selectedStatus: TaskStatus) => {
+        setStatus(selectedStatus);
+        setIsDropdownOpen(false);
+    };
+
+    const statusOptions: TaskStatus[] = ["Pending", "In Progress", "Completed"];
 
     return (
         <div className="form-container">
@@ -62,18 +83,61 @@ export const TaskForm: React.FC<Props> = ({
                 {/* Only show Status dropdown in Edit mode, or remove condition to show always */}
                 {mode === "EDIT" && (
                     <div className="form-group custom-select-wrapper">
-                        <select
-                            value={status}
-                            onChange={(e) =>
-                                setStatus(e.target.value as TaskStatus)
+                        <div
+                            className="custom-select-container"
+                            tabIndex={0}
+                            onBlur={() =>
+                                setTimeout(() => setIsDropdownOpen(false), 200)
                             }
-                            className="input-field select-field"
                         >
-                            <option value="Pending">Pending</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                        <ChevronDown className="select-icon" size={20} />
+                            <div
+                                className="custom-select-trigger"
+                                onClick={() =>
+                                    setIsDropdownOpen(!isDropdownOpen)
+                                }
+                            >
+                                <div className="status-indicator">
+                                    <span
+                                        className="status-dot"
+                                        style={{
+                                            backgroundColor:
+                                                getStatusColor(status),
+                                        }}
+                                    ></span>
+                                    {status}
+                                </div>
+                                <ChevronDown
+                                    size={20}
+                                    color="var(--text-gray)"
+                                />
+                            </div>
+                            {isDropdownOpen && (
+                                <div className="custom-options">
+                                    {statusOptions.map((option) => (
+                                        <div
+                                            key={option}
+                                            className={`custom-option ${
+                                                option === status
+                                                    ? "selected"
+                                                    : ""
+                                            }`}
+                                            onClick={() =>
+                                                handleStatusSelect(option)
+                                            }
+                                        >
+                                            <span
+                                                className="status-dot"
+                                                style={{
+                                                    backgroundColor:
+                                                        getStatusColor(option),
+                                                }}
+                                            ></span>
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
 
