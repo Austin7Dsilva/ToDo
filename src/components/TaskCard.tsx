@@ -32,7 +32,7 @@ export const TaskCard: React.FC<Props> = ({ task, onEdit, onDelete }) => {
     return (
         <div className="task-card">
             <div className="card-top">
-                <div className="icon-circle">L</div>
+                <div className="icon-circle">{task.title.charAt(0).toUpperCase()}</div>
                 <div className="card-header-text">
                     <h3 className="card-title">{task.title}</h3>
                     <div className="status-badge">

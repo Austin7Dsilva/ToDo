@@ -160,10 +160,10 @@ body {
 }
 
 .task-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -2px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
-    border-color: rgba(0, 86, 179, 0.1);
+    border-bottom: none;
+    background: #e9ecef;
+    cursor: pointer;
 }
 
 .card-layout {
@@ -232,6 +232,7 @@ body {
     color: var(--text-dark);
     margin: 0 0 1rem 0;
     line-height: 1.5;
+    padding-left: 57px;
 }
 
 .card-footer {
@@ -239,6 +240,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-top: 0.5rem;
+    padding-left: 57px;
 }
 
 .card-date {
