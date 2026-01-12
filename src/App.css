@@ -1,10 +1,12 @@
 :root {
-    --primary-blue: #1e4ea5;
-    --bg-color: #f3f4f6;
+    --primary-blue: #0056b3; /* Darker blue from Figma */
+    --bg-color: #f8fafc; /* Lighter grey background */
     --white: #ffffff;
-    --text-dark: #1f2937;
-    --text-gray: #6b7280;
-    --border-color: #e5e7eb;
+    --text-dark: #1e293b; /* Darker slate for text */
+    --text-gray: #64748b; /* Slate grey */
+    --border-color: #e2e8f0;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 * {
@@ -13,8 +15,9 @@
 
 body {
     margin: 0;
-    font-family: "Inter", -apple-system, sans-serif;
-    background-color: #eef2f6;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
+    background-color: #f1f5f9;
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -22,12 +25,12 @@ body {
 
 .app-container {
     width: 100%;
-    min-width: 416px;
-    max-width: 416px;
+    min-width: 480px; /* Mobile width usually */
+    max-width: 480px; /* Slightly wider for modern mobile feel */
     background: var(--bg-color);
     min-height: 100vh;
     position: relative;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
 }
@@ -36,17 +39,19 @@ body {
 .app-header {
     background-color: var(--primary-blue);
     color: white;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .app-header h1 {
     margin: 0;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .back-btn {
@@ -68,20 +73,30 @@ body {
 .search-bar {
     background: white;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.8rem;
+    border-radius: 8px; /* More rounded */
+    padding: 1rem; /* More padding */
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 2rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.search-bar:focus-within {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
 }
 
 .search-bar input {
     border: none;
     outline: none;
     width: 100%;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-dark);
+}
+
+.search-bar input::placeholder {
+    color: #94a3b8;
 }
 
 .search-icon {
@@ -90,24 +105,26 @@ body {
 
 /* Accordion */
 .accordion-section {
-    background: #f1f5f9;
-    border-radius: 6px;
-    margin-bottom: 1rem;
-    overflow: hidden;
+    background: transparent; /* Changed from grey background to transparent */
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+    overflow: visible; /* Use visible to allow shadows to show */
 }
 
 .accordion-header {
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    background: #f1f5f9;
+    background: #f1f5f9; /* Match body bg / section header bg from Figma */
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
 }
 
 .section-title {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-dark);
 }
 
@@ -119,39 +136,10 @@ body {
     padding: 0 1rem 1rem 1rem;
 }
 
-/* Task Card */
-.task-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.2rem;
-    margin-top: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-    position: relative;
-    transition: box-shadow 0.2s;
-}
-
-.task-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-}
-
 .card-top {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.icon-circle {
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border: 1px solid var(--primary-blue);
-    color: var(--primary-blue);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    flex-shrink: 0;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .card-header-text {
@@ -161,18 +149,76 @@ body {
     width: 100%;
 }
 
-.card-title {
-    margin: 0 0 5px 0;
-    font-size: 1rem;
+/* Task Card */
+.task-card {
+    background: transparent;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    border-bottom: 1px solid var(--text-gray);
+}
+
+.task-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+    border-color: rgba(0, 86, 179, 0.1);
+}
+
+.card-layout {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+}
+
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    border: 1.5px solid var(--primary-blue);
     color: var(--primary-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.card-content {
+    flex: 1;
+    min-width: 0; /* Prevent flex child overflow */
+}
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    line-height: 1.4;
 }
 
 .status-badge {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
     color: var(--text-dark);
+    flex-shrink: 0; /* Prevent shrinking */
+    background: #f8fafc; /* Subtle background */
+    padding: 4px 8px;
+    border-radius: 999px;
 }
 
 .status-dot {
@@ -182,44 +228,57 @@ body {
 }
 
 .card-desc {
-    font-size: 0.85rem;
-    color: var(--text-gray);
-    margin: 0.5rem 0 1rem 0;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
 }
 
 .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #f3f4f6;
-    padding-top: 0.8rem;
+    margin-top: 0.5rem;
 }
 
 .card-date {
-    font-size: 0.75rem;
-    color: var(--text-gray);
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
 }
 
 .card-actions {
     display: flex;
-    gap: 8px;
-    opacity: 0;
-    transition: opacity 0.2s;
+    gap: 12px;
+    opacity: 0; /* Hidden by default */
+    transform: translateX(10px);
+    transition: all 0.2s ease;
 }
 
 .task-card:hover .card-actions {
     opacity: 1;
+    transform: translateX(0);
 }
 
 .action-btn {
     background: none;
     border: none;
     cursor: pointer;
+    color: #94a3b8;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    display: flex;
+}
+
+.action-btn:hover {
+    background: #f1f5f9;
     color: var(--primary-blue);
 }
-.action-btn.delete {
+
+.action-btn.delete:hover {
     color: #ef4444;
+    background: #fef2f2;
 }
 
 /* Forms */
@@ -274,7 +333,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     font-size: 1rem;
-    width: 48%;
+    width: 36%;
 }
 
 .btn-outline {
