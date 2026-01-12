@@ -132,6 +132,21 @@ body {
     color: var(--primary-blue);
 }
 
+/* Accordion Animation */
+.accordion-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+}
+
+.accordion-wrapper.open {
+    grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+    overflow: hidden;
+}
+
 .accordion-content {
     padding: 0 1rem 1rem 1rem;
 }

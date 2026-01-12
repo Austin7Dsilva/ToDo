@@ -34,7 +34,11 @@ export const TaskSection: React.FC<Props> = ({
                     <ChevronDown size={20} className="text-blue" />
                 )}
             </div>
-            {isOpen && <div className="accordion-content">{children}</div>}
+            <div className={`accordion-wrapper ${isOpen ? "open" : ""}`}>
+                <div className="accordion-inner">
+                    <div className="accordion-content">{children}</div>
+                </div>
+            </div>
         </div>
     );
 };
