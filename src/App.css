@@ -22,7 +22,8 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 480px;
+    min-width: 416px;
+    max-width: 416px;
     background: var(--bg-color);
     min-height: 100vh;
     position: relative;
@@ -154,7 +155,10 @@ body {
 }
 
 .card-header-text {
-    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .card-title {
