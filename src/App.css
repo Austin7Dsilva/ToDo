@@ -249,6 +249,11 @@ body {
     font-weight: 500;
 }
 
+.completed-text {
+    text-decoration: line-through;
+    color: #9ca3af; /* Lighter grey for completed items */
+}
+
 .card-actions {
     display: flex;
     gap: 12px;
